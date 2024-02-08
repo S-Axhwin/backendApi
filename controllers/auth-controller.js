@@ -29,17 +29,22 @@ const UpdataDaYaapa = async (_id, blog, Result)=>{
 const post = async (req, res) => {
     console.log(`hello ${req.body.username}`);
     const {username, password, blog} = {...req.body}
-    const Result = await User.findOne({username: username});
-    //console.log(Result);
-    const id = Result._id || ""
-    if((Result?.username == username) && (Result.password == password)){
-        UpdataDaYaapa(id, blog, Result)
-        console.log('thinking update the db');
-        //console.log('super bro well done');
-        res.json({mes: 'done'})
+    if(username && password && blog){
 
+        const Result = await User.findOne({username: username?username:""});
+        console.log(Result);
+        if(Result.username == username && Result.password == password){
+            const id = Result?._id || ""
+            UpdataDaYaapa(id, blog, Result)
+            console.log('thinking update the db');
+            //console.log('super bro well done');
+            res.json({mes: 'done'})
+            
+        }else{
+            res.json({mes: "nope"})
+        }
     }else{
-        res.json({mes: "nope"})
+        res.json({mes: "ban chok"})
     }
 }
 
