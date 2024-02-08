@@ -7,9 +7,9 @@ const authRouter = require('./routes/auth-route')
 app.use(express.json())
 app.use('/api/auth', authRouter)
 
-app.post('/api', (req, res)=>{
+app.post('/', (req, res)=>{
     console.log(req.body);
-    res.json({...req.body})
+    res.json({mes: "welcome bro"})
 })
 
 connectDB(process.env.MONGO_USER).then(()=>{
