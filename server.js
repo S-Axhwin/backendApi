@@ -13,5 +13,6 @@ app.post('/', (req, res)=>{
 })
 
 connectDB(process.env.MONGO_USER).then(()=>{
-    app.listen(process.env.PORT || 5001, ()=>{console.log('listening');})
+    const PORT = process.env.PORT||5001
+    app.listen( PORT, ()=>{console.log(`listening @ ${PORT}`);})
 })
