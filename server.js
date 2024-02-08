@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
 const connectDB = require('./utils/db');
@@ -10,6 +11,7 @@ app.post('/api', (req, res)=>{
     console.log(req.body);
     res.json({...req.body})
 })
-connectDB().then(()=>{
+
+connectDB(process.env.MONGO_USER).then(()=>{
     app.listen(5001, ()=>{console.log('listening');})
 })
