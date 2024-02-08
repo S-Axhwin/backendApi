@@ -31,7 +31,7 @@ const post = async (req, res) => {
     const {username, password, blog} = {...req.body}
     const Result = await User.findOne({username: username});
     //console.log(Result);
-    const id = Result._id
+    const id = Result._id || ""
     if((Result?.username == username) && (Result.password == password)){
         UpdataDaYaapa(id, blog, Result)
         console.log('thinking update the db');
