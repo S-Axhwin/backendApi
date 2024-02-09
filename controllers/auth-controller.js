@@ -1,12 +1,11 @@
 const User = require('../models/user-models')
-
+const Post = require('../models/post-models')
 
 const register = async (req, res) => {
     const {username, password} = req.body
     const Result = await User.find({username: username});
     if(Result.length===0){
         await User.create({username: username, password: password});
-
         res.json({registered: true})
     }else{
         res.json({registered: false, reason: "User name already exists"})
@@ -17,13 +16,8 @@ const login = async (req, res) => {
     console.log({...req.body});
     res.json({...req.body});
 };
-const UpdataDaYaapa = async (_id, blog, Result)=>{
-    const yaapa = await User.updateOne({_id },{ 
-        $set: {
-            feed: [...Result.feed, blog]
-        }
-    }
-    )
+const UpdataDaYaapa = async (username, blog, Result)=>{
+    const yaapa = await Post.create({username: username, feed: blog})
 
 }
 const post = async (req, res) => {
@@ -35,7 +29,7 @@ const post = async (req, res) => {
         console.log(Result);
         if(Result?.username == username && Result?.password == password){
             const id = Result?._id || ""
-            UpdataDaYaapa(id, blog, Result)
+            UpdataDaYaapa(username, blog, Result)
             console.log('thinking update the db');
             //console.log('super bro well done');
             res.json({mes: true})
@@ -56,7 +50,7 @@ const logout = async (req, res) => {
 
 const datas = async (req, res) => {
     console.log('came into');
-    const form = await User.find();
+    const form = await Post.find();
     res.json(form)
 }
 
