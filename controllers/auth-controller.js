@@ -33,18 +33,18 @@ const post = async (req, res) => {
 
         const Result = await User.findOne({username: username?username:""});
         console.log(Result);
-        if(Result.username == username && Result.password == password){
+        if(Result?.username == username && Result?.password == password){
             const id = Result?._id || ""
             UpdataDaYaapa(id, blog, Result)
             console.log('thinking update the db');
             //console.log('super bro well done');
-            res.json({mes: 'done'})
+            res.json({mes: true})
             
         }else{
-            res.json({mes: "nope"})
+            res.json({mes: false})
         }
     }else{
-        res.json({mes: "ban chok"})
+        res.json({mes: false})
     }
 }
 
